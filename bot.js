@@ -1,6 +1,6 @@
 const http = require("http");
 const url = "http://thexlofts.com/";
-/** String to find in the page - case sensetive */
+/** String to find in the page */
 const needle = "No units available";
 /** SMS Recipient */
 const to= "TO_NUMBER",
@@ -25,32 +25,27 @@ const sendText = (body) => {
   
 };
 
-const doIt = () => {
+const main = () => {
   console.log(new Date().toDateString());
   console.log(`Loading ${url}`);
   http
     .get(url, (resp) => {
       let data = "";
-
-      // A chunk of data has been received.
       resp.on("data", (chunk) => {
         data += chunk;
       });
 
-      // The whole response has been received. Print out the result.
+      // response complete
       resp.on("end", () => {
         const found = !data.includes(needle);
-        const body = `Did I find ${needle} on ${url} Today??\n${            found ? "YES!!!!!!" : "NO!"        }`;
+        const body = `Did I find "${needle}" on ${url} Today?? ${found ? "YES!!!!!!" : "NO!"}`;
         console.log(body);
         sendText(body);
       });
     })
-    .on("error", (err) => {
-      console.error("Error: " + err.message);
-    });
+    .on("error", console.error);
 };
 
-doIt();
-
 const testDelay = 1000 * 10;
-setInterval(doIt, delay);
+main();
+setInterval(main, delay);
