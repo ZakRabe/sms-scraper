@@ -1,12 +1,12 @@
 {
-  "name": "scraperbot",
+  "name": "sms-scraper",
   "version": "1.0.0",
-  "description": "",
+  "description": "Scrapes a site for a string, then texts you success/fail",
   "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
   },
-  "author": "",
+  "author": "Zachary Rabe",
   "license": "ISC",
   "dependencies": {
     "twilio": "^3.70.0"
